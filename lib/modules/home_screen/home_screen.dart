@@ -49,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
       key: _scaffoldKey,
       endDrawer: const Drawer(),
       body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: [
           HomeFragment(

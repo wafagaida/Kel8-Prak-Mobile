@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pertemuan_v/models/user.dart';
+import 'package:pertemuan_v/modules/home_screen/fragments/home_fragment/home_fragment_widgets.dart';
 
-import 'home_fragment_widgets.dart';
+// import 'home_fragment_widgets.dart';
 
 class HomeFragment extends StatefulWidget {
   const HomeFragment({
@@ -30,18 +31,18 @@ class _HomeFragmentState extends State<HomeFragment> {
             padding: const EdgeInsets.symmetric(
               horizontal: 16,
             ),
-            child: HeaderWidget(
-              user: widget.user,
+            child: HomeFragmentWidget.header(
+              widget.user,
             ),
           ),
           const SizedBox(
             height: 16,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(
+          Padding(
+            padding: const EdgeInsets.symmetric(
               horizontal: 16,
             ),
-            child: SearchFieldWidget(),
+            child: HomeFragmentWidget.searchField(),
           ),
           const SizedBox(
             height: 16,
@@ -50,12 +51,12 @@ class _HomeFragmentState extends State<HomeFragment> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(
+                Padding(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                   ),
-                  child: SectionTitle(
-                    label: "Hotest News",
+                  child: HomeFragmentWidget.sectionTitle(
+                    "Hotest News",
                   ),
                 ),
                 const SizedBox(
@@ -65,10 +66,10 @@ class _HomeFragmentState extends State<HomeFragment> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                   ),
-                  child: HotestNewsCard(
-                    size: size,
-                    newsTitle: "Lebaran Sebentar Lagi",
-                    pictureUrl: "https://picsum.photos/1080/690",
+                  child: HomeFragmentWidget.hotestNewsCard(
+                    size,
+                    "https://picsum.photos/1080/690",
+                    "Lebaran Sebentar Lagi",
                   ),
                 ),
                 const SizedBox(
@@ -87,8 +88,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                   ),
-                  child: LatestNewsIndexCardSection(
-                    size: size,
+                  child: HomeFragmentWidget.latestNewsSection(
+                    size,
                   ),
                 ),
               ],

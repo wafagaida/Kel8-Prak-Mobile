@@ -1,8 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pertemuan_v/configs/app_routes.dart';
 
 import '../../../../models/user.dart';
+
+class HomeFragmentWidget {
+  static header(User user) {
+    return HeaderWidget(user: user);
+  }
+
+  static searchField() {
+    return const SearchFieldWidget();
+  }
+
+  static sectionTitle(String label) {
+    return SectionTitle(label: label);
+  }
+
+  static hotestNewsCard(
+    Size size,
+    String pictureUrl,
+    String newsTitle,
+  ) {
+    return HotestNewsCard(
+      size: size,
+      pictureUrl: pictureUrl,
+      newsTitle: newsTitle,
+    );
+  }
+
+  static latestNewsCard(Size size, int i) {
+    return LatestNewsCard(size: size, i: i);
+  }
+
+  static latestNewsSection(Size size) {
+    return LatestNewsSection(size: size);
+  }
+}
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({
@@ -225,8 +260,8 @@ class LatestNewsCard extends StatelessWidget {
   }
 }
 
-class LatestNewsIndexCardSection extends StatelessWidget {
-  const LatestNewsIndexCardSection({
+class LatestNewsSection extends StatelessWidget {
+  const LatestNewsSection({
     super.key,
     required this.size,
   });
@@ -236,13 +271,13 @@ class LatestNewsIndexCardSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints.expand(
-        height: 300,
+      constraints: const BoxConstraints(
+        maxHeight: 300,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (int i = 0; i < 2; i++)
+          for (int i = 0; i < 10; i++)
             LatestNewsCard(
               size: size,
               i: i,
