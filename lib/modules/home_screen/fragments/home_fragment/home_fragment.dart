@@ -8,8 +8,10 @@ class HomeFragment extends StatefulWidget {
   const HomeFragment({
     super.key,
     required this.user,
+    required this.homeScaffold,
   });
   final User user;
+  final GlobalKey<ScaffoldState> homeScaffold;
 
   @override
   State<HomeFragment> createState() => _HomeFragmentState();
@@ -32,7 +34,8 @@ class _HomeFragmentState extends State<HomeFragment> {
               horizontal: 16,
             ),
             child: HomeFragmentWidget.header(
-              widget.user,
+              user: widget.user,
+              homeScaffoldState: widget.homeScaffold,
             ),
           ),
           const SizedBox(

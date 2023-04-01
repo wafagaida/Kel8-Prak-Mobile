@@ -5,8 +5,14 @@ import 'package:pertemuan_v/configs/app_routes.dart';
 import '../../../../models/user.dart';
 
 class HomeFragmentWidget {
-  static header(User user) {
-    return HeaderWidget(user: user);
+  static header({
+    required User user,
+    required GlobalKey<ScaffoldState> homeScaffoldState,
+  }) {
+    return HeaderWidget(
+      user: user,
+      homeScaffoldState: homeScaffoldState,
+    );
   }
 
   static searchField() {
@@ -42,9 +48,11 @@ class HeaderWidget extends StatelessWidget {
   const HeaderWidget({
     super.key,
     required this.user,
+    required this.homeScaffoldState,
   });
 
   final User user;
+  final GlobalKey<ScaffoldState> homeScaffoldState;
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +72,14 @@ class HeaderWidget extends StatelessWidget {
             ),
           ],
         ),
-        CircleAvatar(
-          backgroundImage: NetworkImage(
-            user.profilePhoto!,
+        GestureDetector(
+          onTap: () {
+            homeScaffoldState.currentState!.openEndDrawer();
+          },
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(
+              user.profilePhoto!,
+            ),
           ),
         ),
       ],

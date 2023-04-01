@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   late Size size;
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final PageController _pageController = PageController();
 
   tapBottomItem(int index) {
@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
         curve: Curves.easeIn,
       );
     } else {
-      _scaffoldKey.currentState!.openEndDrawer();
+      scaffoldKey.currentState!.openEndDrawer();
     }
   }
 
@@ -46,14 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return Scaffold(
-      key: _scaffoldKey,
-      endDrawer: const Drawer(),
+      key: scaffoldKey,
+      endDrawer: endDrawer(),
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: [
           HomeFragment(
             user: widget.user,
+            homeScaffold: scaffoldKey,
           ),
           const NewsFragment(),
           const MenuFragment()
@@ -74,6 +75,137 @@ class _HomeScreenState extends State<HomeScreen> {
           bottomMenuItem(
             "Menu",
             Icons.menu_rounded,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Drawer endDrawer() {
+    return Drawer(
+      child: Column(
+        children: [
+          Container(
+            color: Colors.blue,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).padding.top,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
+                  child: AspectRatio(
+                    aspectRatio: 1 / 1,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(500),
+                      child: Image.network(
+                        widget.user.profilePhoto!,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text.rich(
+                  TextSpan(
+                    text: "${widget.user.name} ",
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "(${widget.user.username})",
+                        style: const TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Text(
+                  widget.user.email,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.blue[100],
+              ),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.edit_rounded,
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Flexible(
+                          child: Text(
+                            "Edit Profile",
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.chevron_right_rounded,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const Expanded(
+            child: SizedBox(),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.blue,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  Icons.logout_rounded,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  "Logout",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 16,
           ),
         ],
       ),
