@@ -48,51 +48,53 @@ class _HomeFragmentState extends State<HomeFragment> {
             height: 16,
           ),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                    ),
+                    child: HomeFragmentWidget.sectionTitle(
+                      "Hotest News",
+                    ),
                   ),
-                  child: HomeFragmentWidget.sectionTitle(
-                    "Hotest News",
+                  const SizedBox(
+                    height: 8,
                   ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                    ),
+                    child: HomeFragmentWidget.hotestNewsCard(
+                      size,
+                      "https://picsum.photos/1080/690",
+                      "Lebaran Sebentar Lagi",
+                    ),
                   ),
-                  child: HomeFragmentWidget.hotestNewsCard(
-                    size,
-                    "https://picsum.photos/1080/690",
-                    "Lebaran Sebentar Lagi",
+                  const SizedBox(
+                    height: 16,
                   ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: SectionTitle(
-                    label: "Latest News",
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: SectionTitle(
+                      label: "Latest News",
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
+                  const SizedBox(
+                    height: 8,
                   ),
-                  child: HomeFragmentWidget.latestNewsSection(
-                    size,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                    ),
+                    child: HomeFragmentWidget.latestNewsSection(
+                      size,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

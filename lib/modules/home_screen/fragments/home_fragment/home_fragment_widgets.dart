@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pertemuan_v/configs/app_routes.dart';
 
@@ -270,20 +269,15 @@ class LatestNewsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        maxHeight: 300,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          for (int i = 0; i < 10; i++)
-            LatestNewsCard(
-              size: size,
-              i: i,
-            ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (int i = 0; i < 10; i++)
+          LatestNewsCard(
+            size: size,
+            i: i,
+          ),
+      ],
     );
   }
 }
