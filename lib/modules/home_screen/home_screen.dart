@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pertemuan_v/configs/app_routes.dart';
 import 'package:pertemuan_v/models/user.dart';
 import 'package:pertemuan_v/modules/home_screen/fragments/home_fragment/home_fragment.dart';
 import 'package:pertemuan_v/modules/home_screen/fragments/menu_fragment/menu_fragment.dart';
@@ -7,9 +9,9 @@ import 'package:pertemuan_v/modules/home_screen/fragments/news_fragment/news_fra
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
     super.key,
-    required this.user,
+    // required this.user,
   });
-  final User user;
+  // final User user;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -20,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late Size size;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final PageController _pageController = PageController();
+  late User user;
 
   tapBottomItem(int index) {
     if (index != 2) {
@@ -36,8 +39,13 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  getUserDetail() {
+    user = User.dummy();
+  }
+
   @override
   void initState() {
+    getUserDetail();
     _pageController.addListener(() {});
     super.initState();
   }
@@ -53,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _pageController,
         children: [
           HomeFragment(
-            user: widget.user,
+            user: user,
             homeScaffold: scaffoldKey,
           ),
           const NewsFragment(),
@@ -99,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(500),
                       child: Image.network(
-                        widget.user.profilePhoto!,
+                        user.profilePhoto!,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -110,13 +118,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Text.rich(
                   TextSpan(
-                    text: "${widget.user.name} ",
+                    text: "${user.name} ",
                     style: const TextStyle(
                       fontSize: 16,
                     ),
                     children: [
                       TextSpan(
-                        text: "(${widget.user.username})",
+                        text: "(${user.username})",
                         style: const TextStyle(
                           fontStyle: FontStyle.italic,
                           fontSize: 14,
@@ -127,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Text(
-                  widget.user.email,
+                  user.email,
                   style: const TextStyle(
                     color: Colors.white,
                   ),
@@ -143,35 +151,38 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.blue[100],
-              ),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.edit_rounded,
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Flexible(
-                          child: Text(
-                            "Edit Profile",
+            child: GestureDetector(
+              onTap: () {},
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.blue[100],
+                ),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Row(
+                        children: const [
+                          Icon(
+                            Icons.edit_rounded,
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Flexible(
+                            child: Text(
+                              "Edit Profile",
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const Icon(
-                    Icons.chevron_right_rounded,
-                  ),
-                ],
+                    const Icon(
+                      Icons.chevron_right_rounded,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
