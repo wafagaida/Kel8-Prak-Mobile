@@ -15,26 +15,31 @@ class ProfileDetail extends StatefulWidget {
 
 class _ProfileDetailState extends State<ProfileDetail> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _idController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+  TextEditingController? _idController;
+  TextEditingController? _nameController;
+  TextEditingController? _passwordController;
+  TextEditingController? _emailController;
+  TextEditingController? _nomorTlpController;
   bool isVisiblePassword = false;
 
   @override
   void initState() {
-    if (widget.user.name != "") {
-      _nameController.text = widget.user.name;
-    }
+    _idController = TextEditingController(text: widget.user.id.toString());
+    _nameController = TextEditingController(text: widget.user.name);
+    _passwordController = TextEditingController(text: widget.user.password);
+    _emailController = TextEditingController(text: widget.user.email);
+    _nomorTlpController =
+        TextEditingController(text: widget.user.phoneNumber.toString());
     super.initState();
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _nameController.dispose();
-    _passwordController.dispose();
-    _emailController.dispose();
+    _idController!.dispose();
+    _nameController!.dispose();
+    _passwordController!.dispose();
+    _emailController!.dispose();
+    _nomorTlpController!.dispose();
     super.dispose();
   }
 
@@ -91,26 +96,27 @@ class _ProfileDetailState extends State<ProfileDetail> {
               key: _formKey,
               child: Column(
                 children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(widget.user.profilePhoto!),
+                    radius: 50,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
                     ),
                     child: TextFormField(
                       controller: _idController,
+                      readOnly: true,
                       decoration: InputDecoration(
                         isDense: true,
                         label: const Text("Id"),
-                        hintText: "ex: 014",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      validator: (value) {
-                        if (value == "" || value == null) {
-                          return "Id wajib diisi";
-                        }
-                        return null;
-                      },
                     ),
                   ),
                   const SizedBox(
@@ -168,7 +174,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                         ),
                       ),
                       validator: (value) {
-                        if (value == "" || value == null) {
+                        if (value!.isEmpty) {
                           return "Password wajib diisi";
                         }
                         return null;
@@ -195,6 +201,31 @@ class _ProfileDetailState extends State<ProfileDetail> {
                       validator: (value) {
                         if (value == "" || value == null) {
                           return "Email wajib diisi";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                    ),
+                    child: TextFormField(
+                      controller: _nomorTlpController,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        label: const Text("Nomor Telepon"),
+                        hintText: "ex: 081***",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == "" || value == null) {
+                          return "Nomor Telepon wajib diisi";
                         }
                         return null;
                       },
