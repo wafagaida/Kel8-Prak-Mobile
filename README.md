@@ -1,6 +1,6 @@
-# pertemuan_v
+# tugas
 
-Base Code Pertemuan Lima Sesuai Video
+Tugas Praktikum Mobile Kelompok 8
 
 ## Getting Started
 
