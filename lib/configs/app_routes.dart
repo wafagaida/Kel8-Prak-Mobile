@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pertemuan_v/models/news.dart';
 import 'package:pertemuan_v/modules/home_screen/home_screen.dart';
 import 'package:pertemuan_v/modules/news_detail_screen/news_detail_screen.dart';
 import 'package:pertemuan_v/modules/profile_detail/profile_detail.dart';
