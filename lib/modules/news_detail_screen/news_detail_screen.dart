@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pertemuan_v/models/news.dart';
 
 class NewsDetailScreen extends StatefulWidget {
-  const NewsDetailScreen({
+  NewsDetailScreen({
     super.key,
-    required this.id,
+    required this.news,
   });
-  final String id;
+  News news;
 
   @override
   State<NewsDetailScreen> createState() => _NewsDetailScreenState();
 }
 
 class _NewsDetailScreenState extends State<NewsDetailScreen> {
-  String desc =
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
   int likeCount = 0;
+
+  @override
   void initState() {
     likeCount = 0;
     super.initState();
@@ -28,69 +29,92 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
         onPressed: () {
           setState(() {
             likeCount++;
-            print(likeCount);
           });
         },
-        backgroundColor: Colors.red,
-        child: Icon(Icons.favorite),
+        child: const Icon(Icons.favorite),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  GoRouter.of(context).pop();
-                },
-                icon: const Icon(Icons.chevron_left_rounded),
-              ),
-              const Text("News Detail")
-            ],
+          SizedBox(
+            height: MediaQuery.of(context).padding.top,
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).pop();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.blue.withAlpha(100),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(
+                      Icons.chevron_left_rounded,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                const Text(
+                  "News Detail",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
           Image.network(
-            "https://images.pexels.com/photos/2607544/pexels-photo-2607544.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            widget.news.gambar,
+            width: double.infinity,
           ),
           const SizedBox(
             height: 10,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  widget.news.judul,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  widget.news.deskripsi,
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.justify,
+                ),
+                const SizedBox(height: 10),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "Headline News",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    const Icon(
+                      Icons.favorite,
+                      color: Colors.red,
                     ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                          size: 25,
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text(likeCount.toString())
-                      ],
-                    )
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(likeCount.toString())
                   ],
                 ),
-                const Text(
-                  "Source Image : Pexels.com",
-                  style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
-                ),
-                Text(
-                  desc,
-                  style: const TextStyle(fontSize: 10),
-                  textAlign: TextAlign.justify,
-                )
               ],
             ),
           ),

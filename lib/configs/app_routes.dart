@@ -46,7 +46,7 @@ class AppRoutes {
   ) {
     return MaterialPage(
       child: NewsDetailScreen(
-        id: state.params["id"]!,
+        news: state.extra! as News,
       ),
     );
   }
